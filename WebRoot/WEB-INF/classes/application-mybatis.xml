@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context-3.2.xsd
+    http://www.springframework.org/schema/aop
+    http://www.springframework.org/schema/aop/spring-aop-3.2.xsd">
+
+	<!-- 配置数据源 -->
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
+		<property name="url">
+			<value>jdbc:mysql://127.0.0.1:3306/smbms</value>
+		</property>
+		<property name="username" value="root"></property>
+		<property name="password" value="1992121niu"></property>
+	</bean>
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<!--引用 配置数据源 -->
+		<property name="dataSource" ref="dataSource"></property>
+		<!--引用 配置Mybatis -->
+		<property name="configLocation" value="classpath:mybatis-config.xml"></property>
+
+		<!-- 配置 SQL映射文件 mapperLocations属性是数组 -->
+		<property name="mapperLocations">
+			<list>
+				<value>classpath:com/spring/dao/**/*.xml</value>
+			</list>
+		</property>
+	</bean>
+	<!-- 配置sqlSessionTemplate -->
+	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+			<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"></constructor-arg>
+	</bean>
+	<!-- 配置dao层组件 并注入sqlSessionTempale -->
+	<bean id="userMapper" class="com.spring.dao.user.UserMapperImpl">
+		<property name="sqlsession" ref="sqlSessionTemplate"></property>
+	</bean>
+	<!-- 注入userService -->
+	<bean id="userService" class="com.spring.service.UserServiceImpl">
+		<property name="userMapper" ref="userMapper"></property>
+	</bean>
+</beans>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.spring.dao.UserMapper">
+	<resultMap type="User" id="userMap">
+		<result property="userRoleName" column="roleName" />
+	</resultMap>
+	<select id="getUserList" resultMap="userMap" parameterType="User">
+		SELECT u.*,r.roleName FROM smbms_user u,smbms_role r
+		WHERE u	.userName LIKE CONCAT('%',#{userName},'%')
+		AND u.userRole=#{userRole} AND u.userRole=r.id
+	</select>
+</mapper>
