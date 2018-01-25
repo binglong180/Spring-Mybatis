@@ -1,1 +1,1 @@
-Spring整合Mybatis
+使用MapperFactoryBean注入映射器改造Dao层的注入

@@ -7,7 +7,7 @@ import com.spring.pojo.User;
 
 public class UserServiceImpl implements UserService {
 	private UserMapper userMapper;
-
+	
 	public List<User> getAllUserList(User user) {
 		try{
 			return userMapper.getUserList(user);

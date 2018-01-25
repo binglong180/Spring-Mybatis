@@ -24,20 +24,13 @@
 		<!--引用 配置Mybatis -->
 		<property name="configLocation" value="classpath:mybatis-config.xml"></property>
 
-		<!-- 配置 SQL映射文件 mapperLocations属性是数组 -->
-		<property name="mapperLocations">
-			<list>
-				<value>classpath:com/spring/dao/**/*.xml</value>
-			</list>
-		</property>
+		
 	</bean>
-	<!-- 配置sqlSessionTemplate -->
-	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
-			<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"></constructor-arg>
-	</bean>
-	<!-- 配置dao层组件 并注入sqlSessionTempale -->
-	<bean id="userMapper" class="com.spring.dao.user.UserMapperImpl">
-		<property name="sqlsession" ref="sqlSessionTemplate"></property>
+	
+	<!-- 配置dao层-->
+	<bean id="userMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.spring.dao.user.UserMapper"></property>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
 	</bean>
 	<!-- 注入userService -->
 	<bean id="userService" class="com.spring.service.UserServiceImpl">
