@@ -10,7 +10,8 @@
     http://www.springframework.org/schema/aop/spring-aop-3.2.xsd">
 
 	<!-- 配置数据源 -->
-	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
 		<property name="url">
 			<value>jdbc:mysql://127.0.0.1:3306/smbms</value>
@@ -23,17 +24,12 @@
 		<property name="dataSource" ref="dataSource"></property>
 		<!--引用 配置Mybatis -->
 		<property name="configLocation" value="classpath:mybatis-config.xml"></property>
-
-		
 	</bean>
-	
-	<!-- 配置dao层-->
-	<bean id="userMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
-		<property name="mapperInterface" value="com.spring.dao.user.UserMapper"></property>
-		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+
+	<!-- 配置dao层 -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.spring.dao"></property>
 	</bean>
 	<!-- 注入userService -->
-	<bean id="userService" class="com.spring.service.UserServiceImpl">
-		<property name="userMapper" ref="userMapper"></property>
-	</bean>
+	<context:component-scan base-package="com.spring.service"></context:component-scan>
 </beans>

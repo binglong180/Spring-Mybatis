@@ -2,10 +2,15 @@ package com.spring.service;
 
 import java.util.List;
 
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Service;
+
 import com.spring.dao.user.UserMapper;
 import com.spring.pojo.User;
-
+@Service("userService")
 public class UserServiceImpl implements UserService {
+	@Resource(name="userMapper")
 	private UserMapper userMapper;
 	
 	public List<User> getAllUserList(User user) {
@@ -20,7 +25,7 @@ public class UserServiceImpl implements UserService {
 	public UserMapper getUserMapper() {
 		return userMapper;
 	}
-
+	
 	public void setUserMapper(UserMapper userMapper) {
 		this.userMapper = userMapper;
 	}
