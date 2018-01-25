@@ -1,7 +1,5 @@
-1、使用MapperScannerConfigure注入映射器改造Dao层的注入
-2、使用注解进行service的依赖注入
-首先对注解的扫描加载
-<context:component-scan base-package="com.spring.service"></context:component-scan>
-@service("");
-
-接着自动装配
+1、配置声明式事务
+事务管理的类
+org.springframework.jdbc.datasource.DataSourceTransactionManager
+注意切点的定义
+<aop:pointcut expression="execution(* com.spring.service..*.*(..))" id="pointcut" />

@@ -22,6 +22,11 @@ public class UserServiceImpl implements UserService {
 		}
 	}
 
+	
+
+	public Integer addUser(User user) {
+		return userMapper.addUser(user);
+	}
 	public UserMapper getUserMapper() {
 		return userMapper;
 	}
@@ -30,4 +35,12 @@ public class UserServiceImpl implements UserService {
 		this.userMapper = userMapper;
 	}
 
+
+
+	public void addUserList(List<User> list) {
+		for(User user:list){
+			addUser(user);
+			//throw new RuntimeException("测试异常");
+		}
+	}
 }
