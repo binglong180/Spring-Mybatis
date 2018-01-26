@@ -16,10 +16,10 @@ import com.spring.service.UserService;
 public class MyTest {
 	ApplicationContext act = new ClassPathXmlApplicationContext(
 			"application-mybatis.xml");
+	UserService userService = (UserService) act.getBean("userService");
+	User user = new User();
 	@Test
 	public void test() {
-		UserService userService = (UserService) act.getBean("userService");
-		User user = new User();
 		user.setUserCode("111");
 		user.setUserName("测试名");
 		user.setUserPassword("1111111");
@@ -42,5 +42,11 @@ public class MyTest {
 		list.add(user);
 		list.add(user);
 		userService.addUserList(list);
+	}
+	@Test
+	public void test1(){
+		user.setUserName("赵");
+		user.setUserRole(3);
+		System.out.println(userService.getAllUserList(user));
 	}
 }
